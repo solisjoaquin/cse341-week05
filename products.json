@@ -1,0 +1,23 @@
+{
+  "product": {
+    "productName": "Macbook Pro",
+    "price": 2000,
+    "category": "computers",
+    "description": "M1 256 gb 14 inch",
+    "dateAdded": "12/12/22"
+  },
+  "product2": {
+    "productName": "Mackbook Air",
+    "price": 1200,
+    "category": "computers",
+    "description": "M1 pro 512 gb 13 inch",
+    "dateAdded": "07/12/21"
+  },
+  "product3": {
+    "productName": "Iphone 13",
+    "price": 900,
+    "category": "phones",
+    "description": "512 gb ",
+    "dateAdded": "02/22/21"
+  }
+}
