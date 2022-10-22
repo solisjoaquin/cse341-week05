@@ -2,25 +2,25 @@
 GET http://localhost:8080/products
 
 ### Get product by id 
-GET http://localhost:8080/products/6338fde5e369cf4a6f40b85b
+GET http://localhost:8080/products/63546d28aef72465ee6a3ded
 
 ### Create product 
 POST http://localhost:8080/products HTTP/1.1 
 content-type: application/json
 
 {
-"productName": "Macbook Pro","price": 2000,"category": "computers","description": "M1 256 gb 14 inch","dateAdded": "12/12/22"
+"productName": "Macbook Pro 2025" ,"category": "computers","description": "M1 256 gb 14 inch","dateAdded": "12/12/22"
 }
 
 ### PUT product 
-PUT http://localhost:8080/products/633bc6b1ca1e0baa98b7f32c HTTP/1.1 
+PUT http://localhost:8080/products/635477b2f698a2bd98a9ab5a HTTP/1.1 
 content-type: application/json
 
 {
-"productName": "Macbook Pro M1","price": 1000,"category": "computers","description": "M1 256 gb 14 inch","dateAdded": "12/12/20"
+"productName": "Macbook Pro M5","price": 5000 ,"category": "computers","description": "M3 256 gb 14 inch","dateAdded": "12/12/22"
 }
 ### DELETE product 
-DELETE http://localhost:8080/products/6343a7b2cf684d60c6b03efc HTTP/1.1
+DELETE http://localhost:8080/products/63546d28aef72465ee6a3ded HTTP/1.1
 
 
 ### Link of render: https://cse341-week05.onrender.com/

@@ -1,95 +1,109 @@
-const mongodb = require("../db/connect");
+const db = require("../models");
+const Product = db.product;
 
-const ObjectId = require("mongodb").ObjectId;
-
-const getProducts = async (req, res, next) => {
-  const result = await mongodb.getDb().db().collection("products").find();
-  result.toArray().then((lists) => {
-    res.setHeader("Content-Type", "application/json");
-    res.status(200).json(lists);
-  });
+const getProducts = (req, res) => {
+  try {
+    Product.find({})
+      .then((data) => {
+        res.status(200).send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving products.",
+        });
+      });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
-const getProduct = async (req, res, next) => {
-  const productId = new ObjectId(req.params.id);
-  const result = await mongodb
-    .getDb()
-    .db()
-    .collection("products")
-    .find({ _id: productId });
-  result.toArray().then((lists) => {
-    res.setHeader("Content-Type", "application/json");
-    res.status(200).json(lists[0]);
-  });
+const getProduct = (req, res) => {
+  try {
+    const productId = req.params.id;
+    Product.find({ _id: productId })
+      .then((data) => {
+        res.status(200).send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving products.",
+        });
+      });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
-const createProduct = async (req, res) => {
-  const product = {
-    productName: req.body.productName,
-    price: req.body.price,
-    category: req.body.category,
-    description: req.body.description,
-    dateAdded: req.body.date,
-  };
-  const response = await mongodb
-    .getDb()
-    .db()
-    .collection("products")
-    .insertOne(product);
-
-  if (response.acknowledged) {
-    res.status(201).json(response);
-  } else {
-    res
-      .status(500)
-      .json(
-        response.error || "Some error occurred while creating the product."
-      );
+const createProduct = (req, res) => {
+  try {
+    const product = new Product(req.body);
+    product
+      .save()
+      .then((data) => {
+        console.log(data);
+        res.status(201).send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the product.",
+        });
+      });
+  } catch (err) {
+    res.status(500).json(err);
   }
 };
 
 const updateProductData = async (req, res) => {
-  const productId = new ObjectId(req.params.id);
-  const product = {
-    productName: req.body.productName,
-    price: req.body.price,
-    category: req.body.category,
-    description: req.body.description,
-    dateAdded: req.body.date,
-  };
-  const response = await mongodb
-    .getDb()
-    .db()
-    .collection("products")
-    .replaceOne({ _id: productId }, product);
-
-  if (response.modifiedCount > 0) {
-    res.status(204).send();
-  } else {
-    res
-      .status(500)
-      .json(
-        response.error || "Some error occurred while updating the product."
-      );
+  try {
+    const productId = req.params.id;
+    if (!productId) {
+      res.status(400).send({ message: "Invalid product" });
+      return;
+    }
+    Product.findOne({ _id: productId }, function (err, product) {
+      product.productName = req.body.productName;
+      product.price = req.body.price;
+      product.category = req.body.category;
+      product.description = req.body.description;
+      product.dateAdded = req.body.dateAdded;
+      product.save(function (err) {
+        if (err) {
+          res
+            .status(500)
+            .json(err || "Some error occurred while updating the product.");
+        } else {
+          res.status(204).send();
+        }
+      });
+    });
+  } catch (err) {
+    res.status(500).json(err);
   }
 };
 
 const deleteProduct = async (req, res) => {
-  const productId = new ObjectId(req.params.id);
-  const response = await mongodb
-    .getDb()
-    .db()
-    .collection("products")
-    .deleteOne({ _id: productId }, true);
-
-  if (response.deletedCount > 0) {
-    res.status(204).send();
-  } else {
+  try {
+    const productId = req.params.id;
+    if (!productId) {
+      res.status(400).send({ message: "Invalid product id" });
+      return;
+    }
+    Product.deleteOne({ _id: productId }, function (err, result) {
+      if (err) {
+        res
+          .status(500)
+          .json(err || "Some error occurred while deleting the product.");
+      } else {
+        res.status(204).send(result);
+      }
+    });
+  } catch (err) {
     res
       .status(500)
-      .json(
-        response.error || "Some error occurred while deleting the product."
-      );
+      .json(err || "Some error occurred while deleting the product.");
   }
 };
 

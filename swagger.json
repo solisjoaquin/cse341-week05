@@ -7,7 +7,9 @@
   },
   "host": "localhost:8080",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": [
+    "https"
+  ],
   "paths": {
     "/api-docs": {
       "get": {
@@ -19,11 +21,13 @@
     "/products/": {
       "get": {
         "description": "",
-        "produces": ["application/json"],
         "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -48,7 +52,7 @@
                 "description": {
                   "example": "any"
                 },
-                "date": {
+                "dateAdded": {
                   "example": "any"
                 }
               }
@@ -59,6 +63,9 @@
           "201": {
             "description": "Created"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -68,7 +75,6 @@
     "/products/{id}": {
       "get": {
         "description": "",
-        "produces": ["application/json"],
         "parameters": [
           {
             "name": "id",
@@ -80,6 +86,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -110,7 +119,7 @@
                 "description": {
                   "example": "any"
                 },
-                "date": {
+                "dateAdded": {
                   "example": "any"
                 }
               }
@@ -120,6 +129,9 @@
         "responses": {
           "204": {
             "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
@@ -139,6 +151,9 @@
         "responses": {
           "204": {
             "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
