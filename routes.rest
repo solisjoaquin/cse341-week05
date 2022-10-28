@@ -9,7 +9,7 @@ POST http://localhost:8080/products HTTP/1.1
 content-type: application/json
 
 {
-"productName": "Macbook Pro 2025" ,"category": "computers","description": "M1 256 gb 14 inch","dateAdded": "12/12/22"
+"productName": "Macbook Pro 2025","price": 5000 ,"category": "computers","description": "M1","dateAdded": "12/12/22"
 }
 
 ### PUT product 
@@ -20,7 +20,7 @@ content-type: application/json
 "productName": "Macbook Pro M5","price": 5000 ,"category": "computers","description": "M3 256 gb 14 inch","dateAdded": "12/12/22"
 }
 ### DELETE product 
-DELETE http://localhost:8080/products/63546d28aef72465ee6a3ded HTTP/1.1
+DELETE http://localhost:8080/products/635477b2f698a2bd98a9ab5a HTTP/1.1
 
 
 ### Link of render: https://cse341-week05.onrender.com/

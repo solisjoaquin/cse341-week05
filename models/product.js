@@ -15,6 +15,7 @@ module.exports = (mongoose) => {
     description: {
       type: String,
       required: true,
+      minLength: [5, "Description too short.. Try again with more details"],
     },
     dateAdded: {
       type: String,
