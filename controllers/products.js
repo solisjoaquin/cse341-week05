@@ -1,6 +1,7 @@
 const db = require("../models");
 const Product = db.product;
 
+// get all products
 const getProducts = (req, res) => {
   try {
     Product.find({})
@@ -18,6 +19,7 @@ const getProducts = (req, res) => {
   }
 };
 
+// get only with one product with ID
 const getProduct = (req, res) => {
   try {
     const productId = req.params.id;
@@ -36,6 +38,7 @@ const getProduct = (req, res) => {
   }
 };
 
+// create a product
 const createProduct = (req, res) => {
   try {
     const product = new Product(req.body);
@@ -56,6 +59,7 @@ const createProduct = (req, res) => {
   }
 };
 
+// update product data with ID
 const updateProductData = async (req, res) => {
   try {
     const productId = req.params.id;
@@ -84,6 +88,7 @@ const updateProductData = async (req, res) => {
   }
 };
 
+// delete a product with ID
 const deleteProduct = async (req, res) => {
   try {
     const productId = req.params.id;
